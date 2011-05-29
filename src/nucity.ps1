@@ -9,7 +9,9 @@ $localPackages = $localRepository.GetPackages()
 $outOfDatePackages = [NuGet.PackageRepositoryExtensions]::GetUpdates($DataService, $localPackages)
 
 $outputFile = "results\nucity\index.html"
-if (Test-Path $outputFile) { Clear-Content $outputFile }
+
+New-Item $outputFile -type file -force
+
 Add-Content $outputFile "<html><body>"
 Add-Content $outputFile "<h1>An update exists for the following packages</h1>"
 Add-Content $outputFile "<ul>"
@@ -19,3 +21,5 @@ foreach ($packageUpdate in $outOfDatePackages) {
 }
 Add-Content $outputFile "</ul>"
 Add-Content $outputFile "</body></html>"
+
+Out-Default -InputObject "##teamcity[publishArtifacts '$outputFile']"
