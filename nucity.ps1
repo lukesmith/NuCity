@@ -8,7 +8,7 @@ $localRepository = New-Object NuGet.LocalPackageRepository(resolve-path "..\pack
 $localPackages = $localRepository.GetPackages()
 $outOfDatePackages = [NuGet.PackageRepositoryExtensions]::GetUpdates($DataService, $localPackages)
 
-$outputFile = "results\outofdatepackages.html"
+$outputFile = "results\nucity\index.html"
 if (Test-Path $outputFile) { Clear-Content $outputFile }
 Add-Content $outputFile "<html><body>"
 Add-Content $outputFile "<h1>An update exists for the following packages</h1>"
