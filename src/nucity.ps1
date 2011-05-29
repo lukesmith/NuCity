@@ -3,19 +3,27 @@ $host.UI.RawUI.BufferSize = New-Object System.Management.Automation.Host.Size(81
 $nugetCore = resolve-path "..\packages\NuGet.Core*\lib\net40\NuGet.Core.dll"
 $Assembly = [Reflection.Assembly]::LoadFrom($nugetCore);
 
-$Uri = New-Object System.Uri("http://packages.nuget.org/v1/FeedService.svc/")
-$DataService = New-Object -TypeName "NuGet.DataServicePackageRepository"  -ArgumentList $Uri
+$nugetPackageUri = New-Object System.Uri("http://packages.nuget.org/v1/FeedService.svc/")
+$nugetPackageRepository = New-Object NuGet.DataServicePackageRepository($nugetPackageUri)
 
 $localRepository = New-Object NuGet.LocalPackageRepository(resolve-path "..\packages")
 $localPackages = $localRepository.GetPackages()
-$outOfDatePackages = [NuGet.PackageRepositoryExtensions]::GetUpdates($DataService, $localPackages)
+$outOfDatePackages = [NuGet.PackageRepositoryExtensions]::GetUpdates($nugetPackageRepository, $localPackages)
 
-$outputFile = ("results/nucity.html")
+$outputFile = Resolve-Path("results/nucity.html")
 
 New-Item $outputFile -type file -force
 
 Add-Content $outputFile "<html><body>"
-Add-Content $outputFile "<h1>An update exists for the following packages</h1>"
+Add-Content $outputFile "<h2>Following packages installed</h2>"
+Add-Content $outputFile "<ul>"
+foreach ($package in $localPackages) {
+	$item = "<li>" + $package.Id + " -> " + $package.Version + "</li>"
+	Add-Content $outputFile $item
+}
+Add-Content $outputFile "</ul>"
+
+Add-Content $outputFile "<h2>An update exists for the following packages</h2>"
 Add-Content $outputFile "<ul>"
 foreach ($packageUpdate in $outOfDatePackages) {
 	$item = "<li>" + $packageUpdate.Id + " -> " + $packageUpdate.Version + "</li>"
@@ -24,5 +32,4 @@ foreach ($packageUpdate in $outOfDatePackages) {
 Add-Content $outputFile "</ul>"
 Add-Content $outputFile "</body></html>"
 
-$fullOutputPath = Resolve-Path($outputFile)
-Out-Default -InputObject "##teamcity[publishArtifacts '$fullOutputPath']"
+Out-Default -InputObject "##teamcity[publishArtifacts '$outputFile']"
