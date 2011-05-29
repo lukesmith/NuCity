@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>NuCity</id>
+    <version>1.0</version>
+    <title />
+    <authors>Luke Smith</authors>
+    <owners />
+    <licenseUrl>https://github.com/lukesmith/NuCity/blob/master/license</licenseUrl>
+    <projectUrl>https://github.com/lukesmith/NuCity</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Publishes a build artifact to TeamCity containing a information about the installed NuGet packages</description>
+    <summary />
+    <tags>nuget teamcity</tags>
+    <dependencies>
+      <dependency id="NuGet.Core" version="1.3.20419.9005" />
+    </dependencies>
+  </metadata>
+</package>
