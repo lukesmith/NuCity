@@ -1,0 +1,4 @@
+NuCity is a set of reports for TeamCity that expose information about the NuGet packages of the build.
+
+The current reports available
+ - Out of date packages
