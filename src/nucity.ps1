@@ -10,7 +10,7 @@ $localRepository = New-Object NuGet.LocalPackageRepository(resolve-path "..\pack
 $localPackages = $localRepository.GetPackages()
 $outOfDatePackages = [NuGet.PackageRepositoryExtensions]::GetUpdates($DataService, $localPackages)
 
-$outputFile = ("results/nucity/index.html")
+$outputFile = ("results/nucity.html")
 
 New-Item $outputFile -type file -force
 
