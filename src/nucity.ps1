@@ -22,4 +22,5 @@ foreach ($packageUpdate in $outOfDatePackages) {
 Add-Content $outputFile "</ul>"
 Add-Content $outputFile "</body></html>"
 
-Out-Default -InputObject "##teamcity[publishArtifacts '$outputFile']"
+$fullOutputPath = Resolve-Path $outputFile
+Out-Default -InputObject "##teamcity[publishArtifacts '$fullOutputPath']"
