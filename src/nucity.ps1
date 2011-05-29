@@ -23,4 +23,4 @@ Add-Content $outputFile "</ul>"
 Add-Content $outputFile "</body></html>"
 
 $fullOutputPath = $outputFile
-Out-Default -InputObject "##teamcity[publishArtifacts '$fullOutputPath']"
+Out-Default -InputObject "##teamcity[publishArtifacts '%system.teamcity.build.workingDir%/$fullOutputPath']"
