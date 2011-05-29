@@ -10,7 +10,7 @@ $localRepository = New-Object NuGet.LocalPackageRepository(resolve-path "..\pack
 $localPackages = $localRepository.GetPackages()
 $outOfDatePackages = [NuGet.PackageRepositoryExtensions]::GetUpdates($nugetPackageRepository, $localPackages)
 
-$outputFile = Resolve-Path("results/nucity.html")
+$outputFile = "results/nucity.html"
 
 New-Item $outputFile -type file -force
 
@@ -32,4 +32,5 @@ foreach ($packageUpdate in $outOfDatePackages) {
 Add-Content $outputFile "</ul>"
 Add-Content $outputFile "</body></html>"
 
+$outputFile = Resolve-Path($outputFile)
 Out-Default -InputObject "##teamcity[publishArtifacts '$outputFile']"
