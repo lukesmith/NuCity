@@ -1,3 +1,5 @@
+$host.UI.RawUI.BufferSize = New-Object System.Management.Automation.Host.Size(8192,50)
+
 $nugetCore = resolve-path "..\packages\NuGet.Core*\lib\net40\NuGet.Core.dll"
 $Assembly = [Reflection.Assembly]::LoadFrom($nugetCore);
 
@@ -22,5 +24,5 @@ foreach ($packageUpdate in $outOfDatePackages) {
 Add-Content $outputFile "</ul>"
 Add-Content $outputFile "</body></html>"
 
-$fullOutputPath = $outputFile
-Out-Default -InputObject "##teamcity[publishArtifacts '%system.teamcity.build.workingDir%/$fullOutputPath']"
+$fullOutputPath = Resolve-Path($outputFile)
+Out-Default -InputObject "##teamcity[publishArtifacts '$fullOutputPath']"
