@@ -3,3 +3,7 @@ NuCity is a set of reports for TeamCity that expose information about the NuGet 
 The current reports available
  - List of all packages
  - Out of date packages
+
+Install
+ - NuGet install NuGet.Core
+ - NuGet install NuCity
