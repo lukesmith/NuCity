@@ -12,8 +12,8 @@
     <description>Publishes a build artifact to TeamCity containing a information about the installed NuGet packages</description>
     <summary />
     <tags>nuget teamcity</tags>
-    <dependencies>
-      <dependency id="NuGet.Core" version="1.3.20419.9005" />
-    </dependencies>
   </metadata>
+  <files>
+    <file src="src\nucity.ps1" target="" />
+  </files>
 </package>
